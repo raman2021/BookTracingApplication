@@ -13,11 +13,9 @@
 </p>
 
 <div itemscope itemtype="http://schema.org/Book">
-    <a href="alice.html" itemprop="url">Alice Jones</a>
+    <a href="alice.html" itemprop="url">http://schema.org/Book</a>
 </div>
-<div itemscope itemtype="http://schema.org/Book">
-    <a href="bob.html" itemprop="url">Bob Smith</a>
-</div>
+
 <table class="table">
 
 
@@ -35,7 +33,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Book[0].Author)
             </th>
-            <div class="row">
+           @*<div class="row">
                 <span>
                     Book :
                     @Book.Now.ToString();
@@ -44,7 +42,7 @@
                     Cached Book;
                     @Model.Value.ToString();
                 </span>
-            </div>
+            </div> *@
             <th></th>
         </tr>
     </thead>
