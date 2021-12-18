@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using BookTracingApplication.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BookTracingApplication
 {
@@ -26,11 +27,27 @@ namespace BookTracingApplication
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddMemoryCache();
-            services.AddRazorPages();
+              services.AddMemoryCache();
+            //  services.AddRazorPages();
+
+            //caching is used
+
+          services.AddMvc(options =>
+           {
+               options.CacheProfiles.Add("Default10",
+                   new CacheProfile()
+                   {
+                       Duration = 10
+                   });
+           }); 
 
             services.AddDbContext<BookTracingApplicationContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("BookTracingApplicationContext")));
+
+
+            // compression RESPONSE
+         
+            services.AddResponseCompression();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +63,8 @@ namespace BookTracingApplication
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+         
+            app.UseResponseCompression();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
